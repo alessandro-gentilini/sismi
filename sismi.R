@@ -26,6 +26,8 @@ head(subset[with(subset, order(-MwDef)), ]$epicentral_area)
 head(subset[with(subset, order(-MwDef)), ]$date_time)
 head(subset[with(subset, order(-MwDef)), ]$MwDef)
 
+to_sec <- subset[with(subset, order(-MwDef)), ]
+
 
 df$date_time <- as.POSIXct(paste(df$Year,df$Mo,df$Da,df$Ho), format="%Y %m %d %H")
 df$time <- as.POSIXct(paste(df$Ho), format="%H")
@@ -43,4 +45,6 @@ dev.off()
 head(subset[with(subset, order(-MwDef)), ]$epicentral_area)
 head(subset[with(subset, order(-MwDef)), ]$date_time)
 head(subset[with(subset, order(-MwDef)), ]$MwDef)
+
+just_hour <- subset[with(subset, order(-MwDef)), ]
 
