@@ -21,7 +21,7 @@ nrow(subset)
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/description_CPTI15.htm
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/images/docs/CPTI15_IT_fig01.png
 png(filename="MwDef_vs_time-of-day.png",width=800,height = 600)
-plot(subset$time,subset$MwDef)
+plot(subset$time,subset$MwDef,xlab="Time of day",ylab="Default moment magnitude")
 dev.off()
 
 head(subset[with(subset, order(-MwDef)), ]$epicentral_area)
