@@ -16,12 +16,13 @@ head(df)
 
 subset <- data.frame(date_time=df$date_time,time=df$time,epicentral_area=df$EpicentralArea,MwDef=df$MwDef)
 subset <- na.omit(subset)
-nrow(subset)
+
 
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/description_CPTI15.htm
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/images/docs/CPTI15_IT_fig01.png
 png(filename="MwDef_vs_time-of-day.png",width=800,height = 600)
-plot(subset$time,subset$MwDef,xlab="Time of day",ylab="Default moment magnitude")
+title = sprintf("Number of events: %d, from %s to %s",nrow(subset),min(subset$date_time),max(subset$date_time))
+plot(subset$time,subset$MwDef,xlab="Time of day",ylab="Default moment magnitude",main=title)
 dev.off()
 
 head(subset[with(subset, order(-MwDef)), ]$epicentral_area)
