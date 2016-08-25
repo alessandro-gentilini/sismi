@@ -12,21 +12,35 @@ df <- read_excel(local_file, sheet = "catalogue")
 df$date_time <- as.POSIXct(paste(df$Year,df$Mo,df$Da,df$Ho,df$Mi,df$Se), format="%Y %m %d %H %M %S")
 df$time <- as.POSIXct(paste(df$Ho,df$Mi,df$Se), format="%H %M %S")
 
-head(df)
-
 subset <- data.frame(date_time=df$date_time,time=df$time,epicentral_area=df$EpicentralArea,MwDef=df$MwDef)
 subset <- na.omit(subset)
-
 
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/description_CPTI15.htm
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/images/docs/CPTI15_IT_fig01.png
 png(filename="MwDef_vs_time-of-day.png",width=800,height = 600)
 title = sprintf("Number of events: %d, from %s to %s",nrow(subset),min(subset$date_time),max(subset$date_time))
-plot(subset$time,subset$MwDef,xlab="Time of day",ylab="Default moment magnitude",main=title)
+plot(subset$time,subset$MwDef,xlab="Time of day (to seconds)",ylab="Default moment magnitude",main=title)
 dev.off()
 
 head(subset[with(subset, order(-MwDef)), ]$epicentral_area)
 head(subset[with(subset, order(-MwDef)), ]$date_time)
 head(subset[with(subset, order(-MwDef)), ]$MwDef)
 
-s2 <- subset[with(subset, order(-MwDef)), ]
+
+df$date_time <- as.POSIXct(paste(df$Year,df$Mo,df$Da,df$Ho), format="%Y %m %d %H")
+df$time <- as.POSIXct(paste(df$Ho), format="%H")
+
+subset <- data.frame(date_time=df$date_time,time=df$time,epicentral_area=df$EpicentralArea,MwDef=df$MwDef)
+subset <- na.omit(subset)
+
+# http://emidius.mi.ingv.it/CPTI15-DBMI15/description_CPTI15.htm
+# http://emidius.mi.ingv.it/CPTI15-DBMI15/images/docs/CPTI15_IT_fig01.png
+png(filename="MwDef_vs_hour-of-day.png",width=800,height = 600)
+title = sprintf("Number of events: %d, from %s to %s",nrow(subset),min(subset$date_time),max(subset$date_time))
+plot(subset$time,subset$MwDef,xlab="Hour of day",ylab="Default moment magnitude",main=title)
+dev.off()
+
+head(subset[with(subset, order(-MwDef)), ]$epicentral_area)
+head(subset[with(subset, order(-MwDef)), ]$date_time)
+head(subset[with(subset, order(-MwDef)), ]$MwDef)
+
