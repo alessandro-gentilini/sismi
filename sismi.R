@@ -9,13 +9,23 @@ if(!file.exists(local_file)){
 library(readxl)
 df <- read_excel(local_file, sheet = "catalogue")
 
-df$date_time <- as.POSIXct(paste(df$Year,df$Mo,df$Da,df$Ho,df$Mi), format="%Y %m %d %H %M")
-df$time <- as.POSIXct(paste(df$Ho,df$Mi), format="%H %M")
-df$MwIns
+df$date_time <- as.POSIXct(paste(df$Year,df$Mo,df$Da,df$Ho,df$Mi,df$Se), format="%Y %m %d %H %M %S")
+df$time <- as.POSIXct(paste(df$Ho,df$Mi,df$Se), format="%H %M %S")
 
-subset <- data.frame(date_time=df$date_time,magnitudo=df$MwIns,time=df$time)
+head(df)
+
+subset <- data.frame(date_time=df$date_time,time=df$time,epicentral_area=df$EpicentralArea,MwDef=df$MwDef)
 subset <- na.omit(subset)
+nrow(subset)
 
-plot(subset$time,subset$magnitudo)
+# http://emidius.mi.ingv.it/CPTI15-DBMI15/description_CPTI15.htm
+# http://emidius.mi.ingv.it/CPTI15-DBMI15/images/docs/CPTI15_IT_fig01.png
+png(filename="MwDef_vs_time-of-day.png",width=800,height = 600)
+plot(subset$time,subset$MwDef)
+dev.off()
 
+head(subset[with(subset, order(-MwDef)), ]$epicentral_area)
+head(subset[with(subset, order(-MwDef)), ]$date_time)
+head(subset[with(subset, order(-MwDef)), ]$MwDef)
 
+s2 <- subset[with(subset, order(-MwDef)), ]
