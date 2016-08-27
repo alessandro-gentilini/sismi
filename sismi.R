@@ -17,6 +17,11 @@ df$time <- as.POSIXct(paste(df$Ho,df$Mi,df$Se), format="%H %M %S")
 subset <- data.frame(date_time=df$date_time,time=df$time,epicentral_area=df$EpicentralArea,MwDef=df$MwDef,LatDef=df$LatDef)
 subset <- na.omit(subset)
 subset$is_night <- is.night(subset$date_time,subset$LatDef)
+subset <- subset[with(subset, order(-MwDef)), ]
+subset$count <- 1
+subset$total <- cumsum(subset$count)
+subset$total_night <- cumsum(subset$is_night)
+subset$night_percentage <- subset$total_night/subset$total
 
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/description_CPTI15.htm
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/images/docs/CPTI15_IT_fig01.png
@@ -25,10 +30,12 @@ title = sprintf("Number of events: %d, from %s to %s",nrow(subset),min(subset$da
 plot(subset$time,subset$MwDef,xlab="Time of day (to seconds)",ylab="Default moment magnitude (MwDef)",main=title)
 dev.off()
 
-head(subset[with(subset, order(-MwDef)), ]$epicentral_area)
-head(subset[with(subset, order(-MwDef)), ]$date_time)
-head(subset[with(subset, order(-MwDef)), ]$MwDef)
+png(filename="night_percentage_vs_time-of-day.png",width=800,height = 600)
+title = sprintf("Number of events: %d, from %s to %s",nrow(subset),min(subset$date_time),max(subset$date_time))
+plot(subset$MwDef,subset$night_percentage,xlab="Default moment magnitude (MwDef)",ylab="Night percentage",main=title)
+dev.off()
 
+head(subset)
 to_sec <- subset[with(subset, order(-MwDef)), ]
 
 
