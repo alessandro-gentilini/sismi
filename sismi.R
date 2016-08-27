@@ -1,3 +1,5 @@
+library(LakeMetabolizer) # to get is.nigth
+
 url <- "http://emidius.mi.ingv.it/CPTI15-DBMI15/data/CPTI15_v1.5.xls"
 local_file <- 'CPTI15_v1.5.xls'
 
@@ -12,8 +14,9 @@ df <- read_excel(local_file, sheet = "catalogue")
 df$date_time <- as.POSIXct(paste(df$Year,df$Mo,df$Da,df$Ho,df$Mi,df$Se), format="%Y %m %d %H %M %S")
 df$time <- as.POSIXct(paste(df$Ho,df$Mi,df$Se), format="%H %M %S")
 
-subset <- data.frame(date_time=df$date_time,time=df$time,epicentral_area=df$EpicentralArea,MwDef=df$MwDef)
+subset <- data.frame(date_time=df$date_time,time=df$time,epicentral_area=df$EpicentralArea,MwDef=df$MwDef,LatDef=df$LatDef)
 subset <- na.omit(subset)
+subset$is_night <- is.night(subset$date_time,subset$LatDef)
 
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/description_CPTI15.htm
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/images/docs/CPTI15_IT_fig01.png
@@ -32,8 +35,9 @@ to_sec <- subset[with(subset, order(-MwDef)), ]
 df$date_time <- as.POSIXct(paste(df$Year,df$Mo,df$Da,df$Ho), format="%Y %m %d %H")
 df$time <- as.POSIXct(paste(df$Ho), format="%H")
 
-subset <- data.frame(date_time=df$date_time,time=df$time,epicentral_area=df$EpicentralArea,MwDef=df$MwDef)
+subset <- data.frame(date_time=df$date_time,time=df$time,epicentral_area=df$EpicentralArea,MwDef=df$MwDef,LatDef=df$LatDef)
 subset <- na.omit(subset)
+subset$is_night <- is.night(subset$date_time,subset$LatDef)
 
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/description_CPTI15.htm
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/images/docs/CPTI15_IT_fig01.png
