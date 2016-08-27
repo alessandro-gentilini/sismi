@@ -25,7 +25,7 @@ subset$night_percentage <- subset$total_night/subset$total
 
 head(subset)
 to_sec <- subset
-write.table(to_sec,"to_sec.csv",sep=",")
+write.table(to_sec,"to_sec.csv",sep=",",row.names = FALSE)
 
 subset <- subset[with(subset, order(MwDef)), ]
 subset$count <- 1
@@ -69,7 +69,7 @@ subset$night_percentage <- subset$total_night/subset$total
 
 head(subset)
 just_hour <- subset
-write.table(just_hour,"just_hour.csv",sep=",")
+write.table(just_hour,"just_hour.csv",sep=",",row.names = FALSE)
 
 subset <- subset[with(subset, order(MwDef)), ]
 subset$count <- 1
