@@ -45,7 +45,7 @@ subset$night_percentage_2 <- subset$total_night_2/subset$total
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/description_CPTI15.htm
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/images/docs/CPTI15_IT_fig01.png
 png(filename="MwDef_vs_time-of-day.png",width=800,height = 600)
-title = sprintf("Number of events: %d, from %s to %s",nrow(subset),min(subset$date_time),max(subset$date_time))
+title = sprintf("%d events (%.0f%%), from %s to %s",nrow(subset),100*nrow(subset)/nrow(df),min(subset$date_time),max(subset$date_time))
 plot(extract_time(subset$date_time),subset$MwDef,xlab="Time of day (to seconds)",ylab="Default moment magnitude (MwDef)",main=title)
 dev.off()
 
@@ -89,7 +89,7 @@ subset$night_percentage_2 <- subset$total_night_2/subset$total
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/description_CPTI15.htm
 # http://emidius.mi.ingv.it/CPTI15-DBMI15/images/docs/CPTI15_IT_fig01.png
 png(filename="MwDef_vs_hour-of-day.png",width=800,height = 600)
-title = sprintf("Number of events: %d, from %s to %s",nrow(subset),min(subset$date_time),max(subset$date_time))
+title = sprintf("%d events (%.0f%%), from %s to %s",nrow(subset),100*nrow(subset)/nrow(df),min(subset$date_time),max(subset$date_time))
 plot(extract_time(subset$date_time),subset$MwDef,xlab="Hour of day",ylab="Default moment magnitude (MwDef)",main=title)
 dev.off()
 
