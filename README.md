@@ -22,7 +22,7 @@ I sorted the events known to seconds in [this file](to_sec.csv) with descending 
 
 I do the same for the events known to hours in [this file](just_hour.csv) and in that case the 50% of the top ten eartquakes happened at night.
 
-The code for discriminate day from night is `is.night` by [Luke A. Winslow](https://github.com/lawinslow) in library [LakeMetabolizer](https://github.com/GLEON/LakeMetabolizer).
+The code to discriminate day from night is `is.night` by [Luke A. Winslow](https://github.com/lawinslow) in library [LakeMetabolizer](https://github.com/GLEON/LakeMetabolizer).
 
 
 
