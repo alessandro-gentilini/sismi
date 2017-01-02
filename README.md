@@ -24,5 +24,7 @@ I do the same for the events known to hours in [this file](just_hour.csv) and in
 
 The code to discriminate day from night is `is.night` by [Luke A. Winslow](https://github.com/lawinslow) in library [LakeMetabolizer](https://github.com/GLEON/LakeMetabolizer).
 
+Some info about the forecasts of earthquakes (in Italian): [Cosa sta facendo e cosa ha fatto l'INGV nel campo della previsione dei terremoti?](http://terremoti.ingv.it/it/ultimi-eventi/13-approfondimenti/889-3-cosa-sta-facendo-e-cosa-ha-fatto-l-ingv-nel-campo-della-previsione-dei-terremoti.html).
+
 
 
